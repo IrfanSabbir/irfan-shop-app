@@ -1,0 +1,145 @@
+ Creating data base
+
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('node-complete', 'root', '12345' ,{
+    dialect : 'mysql',
+    host: 'localhost'
+});
+
+module.exports = sequelize; 
+
+
+
+/*const mysql = require('mysql2');
+
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    database : 'node-complete',
+    password: '12345'
+
+});
+
+module.exports = pool.promise();*/
+
+************************************************************************
+
+const sequelize = require('./util/database');
+
+app.use((req, res, next) => {
+    User.findByPk(1)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(err => console.log(err));
+  });
+
+Product.belongsTo(User , { constraints : true, onDelete: 'CASCADE' });
+User.hasMany(Product);
+
+
+
+
+
+// sequelize.sync({force : true})
+sequelize.sync()
+.then(result =>{
+    User.findByPk(1).then(user => {
+        if(!user){
+            return User.create({name : 'Irfan' , email : 'test@test.com'});
+        }
+        return User;
+    })
+    .then(user =>{
+        app.listen(3000);
+    })
+})
+.catch(err => console.log(err));
+
+************************************************************************
+
+const Sequelize = require('sequelize');
+
+const sequelize = require('../util/database');
+
+const User = sequelize.define('user',{
+    id : {
+       type: Sequelize.INTEGER,
+       allowNull : false,
+       autoIncrement: true,
+       primaryKey : true
+    },
+    name :{
+        type : Sequelize.STRING,
+        allowNull : false
+    },
+    email : {
+        type: Sequelize.STRING,
+        allowNull : false,
+
+    }
+
+});
+
+module.exports = User;
+
+
+
+************************************************************************
+here the user is must register in app like 
+app.use((req, res, next) => {
+    User.findByPk(1)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(err => console.log(err));
+  });
+so we can access this from places
+1.to creat an  a product by user
+    req.user.createProduct().then().catch()
+
+2. to get specifics product of an user
+    req.user.getProducts({where : {id : prodId}}).then().catch();
+
+3. to get allproduct of an user
+    req.user.getProducts().then().catch();
+
+to get access to product or it module From controllers we must require Product.
+
+4. to get all product from database ( find all return an array )
+    Product.findAll().then(product =>{}).catch();
+
+
+4. to get specifics or product details of a single product from database ((we will access to product[0] I then block, though it a single array))
+    Product.findAll({where : {id : prodId, name : ....}}).then(product =>{}).catch();
+
+5. to get  an product by id we can do,
+    Product.findByPk(prodId).then(product =>{}).catch();
+
+6. To delete a product ...destroy() method
+
+  const prodId = req.body.productId;
+        Product.findByPk(prodId)
+            .then(product =>{
+               return product.destroy();
+            })
+.then(result =>{  }).catch( err => console.log(err));
+
+        
+
+7. to update a product we can follow save() method
+const productId= req.body.productId;
+    const updatedTitle = req.body.title;
+    const updatedImageUrl = req.body.imageUrl;
+    Product.findByPk(productId)
+        .then(product =>{
+            product.title = updatedTitle;
+            product.imageUrl =updatedImageUrl;
+            return product.save();
+        })
+.then(result =>{}).catch(err => console.log(err));
+    
+ 

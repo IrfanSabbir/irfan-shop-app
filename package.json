@@ -1,0 +1,40 @@
+{
+  "name": "shopproject",
+  "version": "1.0.0",
+  "description": "java script ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production MONGO_USER=Irfan MONGO_PASSWORD=AVOID12345 MONGO_DEFAULT_DATABASE=shop STRIPE_KEY=sk_test_gDu7t07xZH6Fn5G1CEs4Vzf900YCQ9HLlU node app.js",
+    "start-server": "node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "author": "Irfan Sabbir",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^2.2.0",
+    "csurf": "^1.10.0",
+    "ejs": "^2.6.2",
+    "express": "^4.16.4",
+    "express-session": "^1.16.2",
+    "express-validator": "^6.1.1",
+    "helmet": "^3.21.1",
+    "mongodb": "^3.3.0-beta2",
+    "mongoose": "^5.6.7",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "mysql2": "^1.6.5",
+    "nodemailer": "^6.3.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "pdfkit": "^0.10.0",
+    "sequelize": "^5.10.3",
+    "stripe": "^7.8.0"
+  }
+}
